@@ -3,77 +3,166 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototypes</title>
+<title>Prototypes &mdash; Jitterbit</title>
 <style>
   :root {
-    --bar: #5a388a;
-    --bar-text: #ffffff;
+    --navy: #1b3e51;
+    --navy-deep: #14303f;
+    --orange: #f54614;
     --ink: #1c1917;
-    --ink-soft: #57534e;
-    --rule: #ddd9e2;
+    --soft: #6b6660;
+    --rule: #e6e3e0;
+    --hover: #f7f6f4;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    font: 400 15px/1.5 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font: 400 15px/1.55 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--ink);
-    background: #f5f5f7;
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
   }
+  .ribbon { height: 3px; background: var(--orange); }
   header {
-    height: 44px;
-    background: var(--bar);
-    color: var(--bar-text);
     display: flex;
     align-items: center;
-    padding: 0 16px;
+    justify-content: space-between;
+    gap: 16px;
+    height: 64px;
+    padding: 0 28px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--rule);
   }
-  header h1 { margin: 0; font-size: 14px; font-weight: 500; }
-  main {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 40px 20px 64px;
-  }
-  main > p { color: var(--ink-soft); margin: 0 0 28px; }
-  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
-  li { border-bottom: 1px solid var(--rule); }
-  li a {
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-    padding: 16px 4px;
+  .brand { display: block; line-height: 0; }
+  .brand:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; border-radius: 2px; }
+  .logo { height: 26px; width: auto; display: block; }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--navy);
+    color: #ffffff;
+    border: 0;
+    border-radius: 6px;
+    padding: 9px 14px;
+    font: 500 13.5px/1 "Roboto", -apple-system, sans-serif;
     text-decoration: none;
-    color: inherit;
+    cursor: pointer;
+    white-space: nowrap;
   }
-  li a:hover { background: #eeecf1; }
-  li a:focus-visible { outline: 2px solid var(--bar); outline-offset: -2px; }
-  .name { flex: 1 1 auto; font-weight: 500; overflow-wrap: anywhere; }
+  .btn-primary:hover { background: var(--navy-deep); }
+  .btn-primary:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+  .btn-primary svg { width: 15px; height: 15px; }
+  main { max-width: 720px; margin: 0 auto; padding: 44px 24px 80px; }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+  }
+  .lede { margin: 0 0 32px; color: var(--soft); }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .list > li { border-bottom: 1px solid var(--rule); }
+  .list > li:first-child { border-top: 1px solid var(--rule); }
+  .row { display: flex; align-items: center; gap: 12px; padding: 13px 8px; }
+  .row:hover { background: var(--hover); }
+  .name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .name:hover { color: var(--navy); text-decoration: underline; }
+  .name:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
   .size {
     flex: 0 0 auto;
-    font-size: 13px;
-    color: var(--ink-soft);
+    font-size: 12.5px;
+    color: var(--soft);
     font-variant-numeric: tabular-nums;
   }
-  .status { color: var(--ink-soft); padding: 16px 4px; }
-  .status code {
+  .acts { flex: 0 0 auto; display: flex; gap: 2px; }
+  .icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--soft);
+    cursor: pointer;
+    padding: 0;
+  }
+  .icon:hover { background: #eceae7; color: var(--navy); }
+  .icon:focus-visible { outline: 2px solid var(--navy); outline-offset: 1px; }
+  .icon.danger:hover { background: #fdecea; color: #b42318; }
+  .icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .panel {
+    margin: 0 8px 16px;
+    padding: 14px 18px;
+    background: var(--hover);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    font-size: 13.5px;
+  }
+  .panel p { margin: 0; color: var(--soft); }
+  .panel ol { margin: 10px 0 0; padding-left: 20px; }
+  .panel ol li { margin: 5px 0; border: 0; }
+  .panel a { color: var(--navy); }
+  .status { color: var(--soft); padding: 4px 8px; }
+  .status code, .panel code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 13px;
-    background: #ebeaee;
+    font-size: 12.5px;
+    background: #f0eeeb;
     padding: 2px 5px;
     border-radius: 3px;
+  }
+  .toast {
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: #ffffff;
+    font-size: 13px;
+    padding: 9px 15px;
+    border-radius: 6px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+  .toast.on { opacity: 1; }
+  @media (max-width: 560px) {
+    header { padding: 0 16px; height: 58px; }
+    .logo { height: 22px; }
+    main { padding: 28px 16px 60px; }
+    .size { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
   }
 </style>
 </head>
 <body>
-  <header><h1>Prototypes</h1></header>
-  <main>
-    <p>Interactive UX prototypes, hosted straight from the repository.</p>
-    <div id="out"><p class="status">Loading&hellip;</p></div>
-  </main>
-
+<div class="ribbon"></div>
+<header>
+  <a class="brand" href="./" aria-label="Jitterbit"><svg class="logo" viewBox="0 0 200 43" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.2167 17.8665C32.2 17.8665 27.0667 13.9499 25.25 8.5332C24.7167 11.0665 23.7333 13.4999 22.3 15.7165C22.2167 15.8499 22.1333 15.9832 22.0333 16.1165C23.4833 18.0832 25.2833 19.7665 27.3333 21.0999C30.4833 19.0499 34.2167 17.8665 38.2167 17.8665Z" fill="#FF6629"/><path d="M4.45 17.8658C8.45 17.8658 12.2 19.0491 15.3333 21.0824C17.7333 19.5324 19.7833 17.4824 21.3333 15.0824C19.3 11.9491 18.1167 8.21576 18.1167 4.19909C18.1167 11.7324 11.9833 17.8658 4.45 17.8658C2.66667 17.8658 1.23334 19.2991 1.23334 21.0824C1.23334 19.3158 2.68334 17.8658 4.45 17.8658Z" fill="#1D5066"/><path d="M18.1167 4.19909C18.1167 8.19909 19.3 11.9324 21.3333 15.0824C23.3667 11.9491 24.55 8.21576 24.55 4.19909C24.55 2.41576 23.1167 0.982422 21.3333 0.982422C19.5667 0.982422 18.1167 2.43242 18.1167 4.19909Z" fill="#1B3E51"/><path d="M4.45 24.3005C8.45 24.3005 12.2 23.1172 15.3333 21.0839C12.2 19.0505 8.46667 17.8672 4.45 17.8672C2.66667 17.8672 1.23334 19.3005 1.23334 21.0839C1.23334 22.8672 2.68334 24.3005 4.45 24.3005Z" fill="#1B3E51"/><path d="M38.2167 17.8672C34.2167 17.8672 30.4667 19.0505 27.3333 21.0839C30.4667 23.1172 34.2 24.3005 38.2167 24.3005C40 24.3005 41.4333 22.8672 41.4333 21.0839C41.4333 19.3172 40 17.8672 38.2167 17.8672Z" fill="#F54614"/><path d="M20.6833 26.134C19.2333 24.134 17.4167 22.4173 15.3333 21.084C12.2 23.1173 8.46667 24.3007 4.45 24.3007C10.5167 24.3007 15.6667 28.2673 17.45 33.7507C17.9833 31.2007 18.9833 28.7507 20.4167 26.534C20.5 26.4007 20.5833 26.2673 20.6833 26.134Z" fill="#1D5066"/><path d="M38.2167 24.3007C34.2167 24.3007 30.4667 23.1173 27.3333 21.084C24.9333 22.634 22.8833 24.684 21.3333 27.084C23.3667 30.2173 24.55 33.9507 24.55 37.9673C24.55 30.434 30.6833 24.3007 38.2167 24.3007Z" fill="#FF6629"/><path d="M24.55 37.9673C24.55 33.9673 23.3667 30.234 21.3333 27.084C19.3 30.2173 18.1167 33.9507 18.1167 37.9673C18.1167 39.7507 19.55 41.184 21.3333 41.184C23.1167 41.184 24.55 39.7507 24.55 37.9673Z" fill="#F54614"/><path d="M198.567 18.4339V13.6339H193.117V7.61719H187.2V13.6339H184.3V18.4172H187.2V30.2839C187.2 35.2839 189.7 37.7172 194.833 37.7172H198.55V32.7839H195.833C194.85 32.7839 194.167 32.5839 193.75 32.2005C193.333 31.8172 193.117 31.1839 193.117 30.3172V18.4005L198.567 18.4339Z" fill="#1B3E51"/><path d="M176 37.7328H181.867V13.6328H176V37.7328Z" fill="#1B3E51"/><path d="M178.983 11.2492C180.99 11.2492 182.617 9.61506 182.617 7.59922C182.617 5.58338 180.99 3.94922 178.983 3.94922C176.977 3.94922 175.35 5.58338 175.35 7.59922C175.35 9.61506 176.977 11.2492 178.983 11.2492Z" fill="#1B3E51"/><path d="M172.3 19.1001C171.333 17.2168 170.017 15.7835 168.35 14.7668C166.7 13.7668 164.817 13.2501 162.783 13.2501C161.033 13.2501 159.45 13.6168 158.083 14.3335C156.733 15.0501 155.633 16.0001 154.867 17.1501L154.633 17.5168V5.4668H148.75V37.7335H154.633V33.9835L154.867 34.3168C155.667 35.4335 156.75 36.3668 158.083 37.0835C159.417 37.7835 161 38.1501 162.783 38.1501C164.833 38.1501 166.7 37.6168 168.35 36.5835C170 35.5501 171.333 34.0668 172.3 32.1668C173.267 30.2835 173.75 28.0668 173.75 25.6168C173.75 23.1668 173.25 20.9668 172.3 19.1001ZM166.817 29.5335C166.217 30.6335 165.383 31.5001 164.4 32.1001C163.4 32.7001 162.317 33.0001 161.15 33.0001C159.983 33.0001 158.933 32.7001 157.95 32.1335C156.95 31.5668 156.15 30.7001 155.533 29.6001C154.933 28.5001 154.617 27.1835 154.617 25.7001C154.617 24.2168 154.917 22.9168 155.533 21.8001C156.133 20.7001 156.967 19.8501 157.95 19.2668C158.95 18.7001 160.017 18.4001 161.15 18.4001C162.283 18.4001 163.4 18.7001 164.4 19.2501C165.4 19.8168 166.2 20.6501 166.817 21.7501C167.417 22.8501 167.733 24.1501 167.733 25.6168C167.733 27.0835 167.433 28.4335 166.817 29.5335Z" fill="#1B3E51"/><path d="M139.283 16.3674L139.05 16.7008V13.6508H133.167V37.7508H139.05V25.7508C139.05 23.4674 139.55 21.8341 140.567 20.9008C141.567 19.9841 143.067 19.5008 145.017 19.5008H146.517V13.3008C142.1 13.3341 140.083 15.2341 139.283 16.3674Z" fill="#1B3E51"/><path d="M130.967 25.1833C130.967 22.85 130.467 20.75 129.467 18.9333C128.517 17.1333 127.1 15.7167 125.3 14.7333C123.5 13.75 121.433 13.25 119.15 13.25C116.867 13.25 114.667 13.7667 112.85 14.7833C111.05 15.7833 109.6 17.2667 108.6 19.1167C107.6 21 107.067 23.2 107.067 25.7C107.067 28.2 107.583 30.3667 108.6 32.2333C109.617 34.1167 111.067 35.5833 112.9 36.6C114.733 37.6167 116.817 38.1333 119.133 38.1333C121.983 38.1333 124.433 37.3833 126.383 35.9C128.283 34.45 129.617 32.5833 130.317 30.35H123.95C122.95 32.3167 121.283 33.2833 119 33.2833C117.383 33.2833 116.017 32.7667 114.917 31.75C113.817 30.75 113.183 29.3167 113.033 27.5333L113.017 27.4H130.817C130.917 26.75 130.967 25.9833 130.967 25.1833ZM124.9 23.5333H113.083L113.117 23.3833C113.35 21.7167 114.017 20.4 115.067 19.45C116.133 18.5167 117.45 18.0333 118.983 18.0333C120.617 18.0333 122.017 18.5167 123.15 19.4833C124.283 20.4667 124.867 21.7667 124.9 23.3833V23.5333Z" fill="#1B3E51"/><path d="M100.883 7.63281H94.9667V13.6495H92.5V18.4328H94.9667V30.2995C94.9667 35.2995 97.4667 37.7328 102.6 37.7328H106.317V32.7995H103.6C102.617 32.7995 101.933 32.5995 101.517 32.2161C101.1 31.8328 100.883 31.1995 100.883 30.3328V18.4161H106.333V13.6495H100.867L100.883 7.63281Z" fill="#1B3E51"/><path d="M85.6333 7.61719H79.7166V13.6339H76.8167V18.4172H79.7166V30.2839C79.7166 35.2839 82.2166 37.7172 87.35 37.7172H91.0667V32.7839H88.35C87.3666 32.7839 86.6833 32.5839 86.2666 32.2005C85.85 31.8005 85.6333 31.1839 85.6333 30.3172V18.4005H91.0833V13.6339H85.6333V7.61719Z" fill="#1B3E51"/><path d="M68.5833 37.7504H74.4666V13.6504H68.5833V37.7504Z" fill="#1B3E51"/><path d="M71.5667 11.2668C73.5733 11.2668 75.2 9.63264 75.2 7.6168C75.2 5.60096 73.5733 3.9668 71.5667 3.9668C69.56 3.9668 67.9333 5.60096 67.9333 7.6168C67.9333 9.63264 69.56 11.2668 71.5667 11.2668Z" fill="#1B3E51"/><path d="M59.4 28.7331C59.4 29.9997 59.1 30.9997 58.4833 31.7164C57.8667 32.4497 56.9833 32.8164 55.8333 32.8164C54.6833 32.8164 53.75 32.4164 53.1167 31.6664C52.5167 30.9331 52.2 29.9164 52.15 28.6497H46.2667C46.3 31.5831 47.1833 33.8997 48.9333 35.5331C50.7 37.1997 53.05 38.0497 55.9333 38.0497C58.8167 38.0497 61.0833 37.2164 62.7833 35.5997C64.4833 33.9831 65.3333 31.6664 65.3333 28.7164V7.31641H59.4V28.7331Z" fill="#1B3E51"/></svg></a>
+  <div id="header-actions"></div>
+</header>
+<main>
+  <h1>Prototypes</h1>
+  <p class="lede">Interactive UX prototypes, hosted straight from the repository.</p>
+  <div id="out"><p class="status">Loading&hellip;</p></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function () {
   var OWNER = 'fernandoalves-jitterbit';
   var REPO = 'Claude-final-prototypes';
+  var BRANCH = 'main';
   var SKIP = { 'index.html': 1, 'view.html': 1, '404.html': 1 };
 
   var host = location.hostname.match(/^([^.]+)\.github\.io$/);
@@ -81,18 +170,153 @@
   if (host) OWNER = host[1];
   if (seg) REPO = seg;
 
+  var admin = new URLSearchParams(location.search).get('admin') === '1';
+  var base = location.origin + location.pathname.replace(/[^/]*$/, '');
+  var repoUrl = 'https://github.com/' + OWNER + '/' + REPO;
   var out = document.getElementById('out');
 
-  function mb(bytes) {
+  var ICON = {
+    link: '<svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>',
+    swap: '<svg viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>',
+    pencil: '<svg viewBox="0 0 24 24"><path d="M4 20h4l11-11a2.5 2.5 0 0 0-3.5-3.5L4 16.5V20z"/></svg>',
+    trash: '<svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V5h6v2"/><path d="M6 7l1 13h10l1-13"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+  };
+
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('on'); }, 1800);
+  }
+
+  function copy(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(
+        function () { say('Link copied'); },
+        function () { legacyCopy(text); }
+      );
+    } else {
+      legacyCopy(text);
+    }
+  }
+
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    say(ok ? 'Link copied' : 'Could not copy — the link is ' + text);
+  }
+
+  function size(bytes) {
     if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' KB';
+    if (bytes < 1048576) return Math.round(bytes / 1024) + ' KB';
     return (bytes / 1048576).toFixed(1) + ' MB';
   }
 
-  function fallback(reason) {
-    out.innerHTML = '<p class="status">' + reason +
-      ' Prototypes are still reachable directly at ' +
-      '<code>' + location.origin + location.pathname + 'file-name.html</code>.</p>';
+  function iconBtn(kind, label, danger) {
+    var b = document.createElement('button');
+    b.className = 'icon' + (danger ? ' danger' : '');
+    b.type = 'button';
+    b.title = label;
+    b.setAttribute('aria-label', label);
+    b.innerHTML = ICON[kind];
+    return b;
+  }
+
+  if (admin) {
+    var add = document.createElement('a');
+    add.className = 'btn-primary';
+    add.href = repoUrl + '/upload/' + BRANCH;
+    add.target = '_blank';
+    add.rel = 'noopener';
+    add.innerHTML = ICON.plus + '<span>New prototype</span>';
+    document.getElementById('header-actions').appendChild(add);
+  }
+
+  function renamePanel(name) {
+    var wrap = document.createElement('div');
+    wrap.className = 'panel';
+    var stem = name.replace(/\.html$/i, '');
+    wrap.innerHTML =
+      '<p>GitHub cannot rename a file this large in the browser, so this takes three steps:</p>' +
+      '<ol>' +
+        '<li><a href="' + name + '" download>Download <code>' + name + '</code></a> and rename it on your machine.</li>' +
+        '<li><a href="' + repoUrl + '/upload/' + BRANCH + '" target="_blank" rel="noopener">Upload the renamed file</a> and commit.</li>' +
+        '<li><a href="' + repoUrl + '/delete/' + BRANCH + '/' + encodeURIComponent(name) + '" target="_blank" rel="noopener">Delete <code>' + stem + '</code></a>, the old copy.</li>' +
+      '</ol>';
+    return wrap;
+  }
+
+  function render(files) {
+    var ul = document.createElement('ul');
+    ul.className = 'list';
+
+    files.forEach(function (f) {
+      var li = document.createElement('li');
+      var row = document.createElement('div');
+      row.className = 'row';
+
+      var link = document.createElement('a');
+      link.className = 'name';
+      link.href = 'view.html?p=' + encodeURIComponent(f.name) + (admin ? '&admin=1' : '');
+      link.textContent = f.name.replace(/\.html$/i, '');
+
+      var sz = document.createElement('span');
+      sz.className = 'size';
+      sz.textContent = size(f.size);
+
+      var acts = document.createElement('div');
+      acts.className = 'acts';
+
+      var copyBtn = iconBtn('link', 'Copy link');
+      copyBtn.addEventListener('click', function () {
+        copy(base + 'view.html?p=' + encodeURIComponent(f.name));
+      });
+      acts.appendChild(copyBtn);
+
+      if (admin) {
+        var change = iconBtn('swap', 'Change file');
+        change.addEventListener('click', function () {
+          window.open(repoUrl + '/upload/' + BRANCH, '_blank', 'noopener');
+          say('Upload it with the same name to replace this one');
+        });
+
+        var ren = iconBtn('pencil', 'Rename');
+        ren.addEventListener('click', function () {
+          var open = li.querySelector('.panel');
+          if (open) { open.remove(); return; }
+          li.appendChild(renamePanel(f.name));
+        });
+
+        var del = iconBtn('trash', 'Delete', true);
+        del.addEventListener('click', function () {
+          window.open(repoUrl + '/delete/' + BRANCH + '/' + encodeURIComponent(f.name), '_blank', 'noopener');
+        });
+
+        acts.appendChild(change);
+        acts.appendChild(ren);
+        acts.appendChild(del);
+      }
+
+      row.appendChild(link);
+      row.appendChild(sz);
+      row.appendChild(acts);
+      li.appendChild(row);
+      ul.appendChild(li);
+    });
+
+    out.innerHTML = '';
+    out.appendChild(ul);
   }
 
   fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/')
@@ -104,42 +328,19 @@
       var files = items.filter(function (f) {
         return f.type === 'file' && /\.html$/i.test(f.name) && !SKIP[f.name.toLowerCase()];
       });
-
       if (!files.length) {
-        out.innerHTML = '<p class="status">No prototypes yet. Commit an ' +
-          '<code>.html</code> file to the repository root and it shows up here.</p>';
+        out.innerHTML = '<p class="status">No prototypes yet. Commit an <code>.html</code> file to the repository root and it shows up here.</p>';
         return;
       }
-
       files.sort(function (a, b) { return a.name.localeCompare(b.name); });
-
-      var ul = document.createElement('ul');
-      files.forEach(function (f) {
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.href = 'view.html?p=' + encodeURIComponent(f.name);
-
-        var name = document.createElement('span');
-        name.className = 'name';
-        name.textContent = f.name.replace(/\.html$/i, '');
-
-        var size = document.createElement('span');
-        size.className = 'size';
-        size.textContent = mb(f.size);
-
-        a.appendChild(name);
-        a.appendChild(size);
-        li.appendChild(a);
-        ul.appendChild(li);
-      });
-
-      out.innerHTML = '';
-      out.appendChild(ul);
+      render(files);
     })
     .catch(function (e) {
-      fallback(String(e.message) === '403'
-        ? 'The list is temporarily unavailable — GitHub rate-limits anonymous requests, so it returns in an hour.'
-        : 'The list could not be loaded.');
+      out.innerHTML = '<p class="status">' +
+        (String(e.message) === '403'
+          ? 'The list is rate-limited by GitHub for anonymous requests and returns within the hour.'
+          : 'The list could not be loaded.') +
+        ' Prototypes stay reachable at <code>' + base + 'file-name.html</code>.</p>';
     });
 })();
 </script>

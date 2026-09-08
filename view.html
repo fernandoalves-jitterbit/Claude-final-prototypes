@@ -3,54 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prototype</title>
+<title>Prototype &mdash; Jitterbit</title>
 <style>
   :root {
-    --bar: #5a388a;
-    --bar-text: #ffffff;
-    --bar-height: 44px;
+    --navy: #1b3e51;
+    --navy-deep: #14303f;
+    --orange: #f54614;
+    --ink: #1c1917;
+    --soft: #6b6660;
+    --rule: #e6e3e0;
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
   body {
     margin: 0;
-    font: 400 14px/1.4 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: #f5f5f7;
+    font: 400 15px/1.55 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: #ffffff;
     display: flex;
     flex-direction: column;
+    -webkit-font-smoothing: antialiased;
   }
+  .ribbon { flex: 0 0 3px; background: var(--orange); }
   header {
-    flex: 0 0 var(--bar-height);
-    height: var(--bar-height);
-    background: var(--bar);
-    color: var(--bar-text);
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 0 16px;
+    gap: 18px;
+    height: 64px;
+    padding: 0 28px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--rule);
   }
-  header h1 {
-    margin: 0;
+  .brand { display: block; line-height: 0; flex: 0 0 auto; }
+  .brand:focus-visible { outline: 2px solid var(--navy); outline-offset: 4px; border-radius: 2px; }
+  .logo { height: 26px; width: auto; display: block; }
+  .divider { flex: 0 0 1px; align-self: stretch; margin: 18px 0; background: var(--rule); }
+  h1 {
     flex: 1 1 auto;
-    font-size: 14px;
+    min-width: 0;
+    margin: 0;
+    font-size: 15px;
     font-weight: 500;
+    color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  header a {
-    color: var(--bar-text);
-    font-size: 13px;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 4px;
-    padding: 5px 10px;
-    white-space: nowrap;
+  .btn {
     flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    padding: 8px 13px;
+    font: 500 13.5px/1 "Roboto", -apple-system, sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
   }
-  header a.plain { border-color: transparent; padding-left: 0; }
-  header a:hover { background: rgba(255, 255, 255, 0.14); }
-  header a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .btn-ghost { color: var(--soft); }
+  .btn-ghost:hover { background: #f2f0ed; color: var(--navy); }
+  .btn-solid { background: var(--navy); color: #ffffff; }
+  .btn-solid:hover { background: var(--navy-deep); }
+  .btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
   .frame-wrap { flex: 1 1 auto; min-height: 0; position: relative; }
   iframe {
     position: absolute;
@@ -61,49 +76,57 @@
     display: block;
     background: #ffffff;
   }
-  .message {
-    padding: 48px 24px;
-    text-align: center;
-    color: #57534e;
-  }
+  .message { padding: 56px 24px; text-align: center; color: var(--soft); }
+  .message a { color: var(--navy); }
   .message code {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 13px;
-    background: #ebeaee;
+    font-size: 12.5px;
+    background: #f0eeeb;
     padding: 2px 5px;
     border-radius: 3px;
+  }
+  @media (max-width: 560px) {
+    header { padding: 0 14px; gap: 12px; height: 58px; }
+    .logo { height: 22px; }
+    .divider { display: none; }
   }
 </style>
 </head>
 <body>
-  <header>
-    <a class="plain" href="./" title="All prototypes">&larr;</a>
-    <h1 id="title">Prototype</h1>
-    <a id="fullscreen" href="#" target="_blank" rel="noopener">Open full screen</a>
-  </header>
-  <div class="frame-wrap" id="wrap"></div>
-
+<div class="ribbon"></div>
+<header>
+  <a class="brand" id="back" href="./" aria-label="All prototypes"><svg class="logo" viewBox="0 0 200 43" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.2167 17.8665C32.2 17.8665 27.0667 13.9499 25.25 8.5332C24.7167 11.0665 23.7333 13.4999 22.3 15.7165C22.2167 15.8499 22.1333 15.9832 22.0333 16.1165C23.4833 18.0832 25.2833 19.7665 27.3333 21.0999C30.4833 19.0499 34.2167 17.8665 38.2167 17.8665Z" fill="#FF6629"/><path d="M4.45 17.8658C8.45 17.8658 12.2 19.0491 15.3333 21.0824C17.7333 19.5324 19.7833 17.4824 21.3333 15.0824C19.3 11.9491 18.1167 8.21576 18.1167 4.19909C18.1167 11.7324 11.9833 17.8658 4.45 17.8658C2.66667 17.8658 1.23334 19.2991 1.23334 21.0824C1.23334 19.3158 2.68334 17.8658 4.45 17.8658Z" fill="#1D5066"/><path d="M18.1167 4.19909C18.1167 8.19909 19.3 11.9324 21.3333 15.0824C23.3667 11.9491 24.55 8.21576 24.55 4.19909C24.55 2.41576 23.1167 0.982422 21.3333 0.982422C19.5667 0.982422 18.1167 2.43242 18.1167 4.19909Z" fill="#1B3E51"/><path d="M4.45 24.3005C8.45 24.3005 12.2 23.1172 15.3333 21.0839C12.2 19.0505 8.46667 17.8672 4.45 17.8672C2.66667 17.8672 1.23334 19.3005 1.23334 21.0839C1.23334 22.8672 2.68334 24.3005 4.45 24.3005Z" fill="#1B3E51"/><path d="M38.2167 17.8672C34.2167 17.8672 30.4667 19.0505 27.3333 21.0839C30.4667 23.1172 34.2 24.3005 38.2167 24.3005C40 24.3005 41.4333 22.8672 41.4333 21.0839C41.4333 19.3172 40 17.8672 38.2167 17.8672Z" fill="#F54614"/><path d="M20.6833 26.134C19.2333 24.134 17.4167 22.4173 15.3333 21.084C12.2 23.1173 8.46667 24.3007 4.45 24.3007C10.5167 24.3007 15.6667 28.2673 17.45 33.7507C17.9833 31.2007 18.9833 28.7507 20.4167 26.534C20.5 26.4007 20.5833 26.2673 20.6833 26.134Z" fill="#1D5066"/><path d="M38.2167 24.3007C34.2167 24.3007 30.4667 23.1173 27.3333 21.084C24.9333 22.634 22.8833 24.684 21.3333 27.084C23.3667 30.2173 24.55 33.9507 24.55 37.9673C24.55 30.434 30.6833 24.3007 38.2167 24.3007Z" fill="#FF6629"/><path d="M24.55 37.9673C24.55 33.9673 23.3667 30.234 21.3333 27.084C19.3 30.2173 18.1167 33.9507 18.1167 37.9673C18.1167 39.7507 19.55 41.184 21.3333 41.184C23.1167 41.184 24.55 39.7507 24.55 37.9673Z" fill="#F54614"/><path d="M198.567 18.4339V13.6339H193.117V7.61719H187.2V13.6339H184.3V18.4172H187.2V30.2839C187.2 35.2839 189.7 37.7172 194.833 37.7172H198.55V32.7839H195.833C194.85 32.7839 194.167 32.5839 193.75 32.2005C193.333 31.8172 193.117 31.1839 193.117 30.3172V18.4005L198.567 18.4339Z" fill="#1B3E51"/><path d="M176 37.7328H181.867V13.6328H176V37.7328Z" fill="#1B3E51"/><path d="M178.983 11.2492C180.99 11.2492 182.617 9.61506 182.617 7.59922C182.617 5.58338 180.99 3.94922 178.983 3.94922C176.977 3.94922 175.35 5.58338 175.35 7.59922C175.35 9.61506 176.977 11.2492 178.983 11.2492Z" fill="#1B3E51"/><path d="M172.3 19.1001C171.333 17.2168 170.017 15.7835 168.35 14.7668C166.7 13.7668 164.817 13.2501 162.783 13.2501C161.033 13.2501 159.45 13.6168 158.083 14.3335C156.733 15.0501 155.633 16.0001 154.867 17.1501L154.633 17.5168V5.4668H148.75V37.7335H154.633V33.9835L154.867 34.3168C155.667 35.4335 156.75 36.3668 158.083 37.0835C159.417 37.7835 161 38.1501 162.783 38.1501C164.833 38.1501 166.7 37.6168 168.35 36.5835C170 35.5501 171.333 34.0668 172.3 32.1668C173.267 30.2835 173.75 28.0668 173.75 25.6168C173.75 23.1668 173.25 20.9668 172.3 19.1001ZM166.817 29.5335C166.217 30.6335 165.383 31.5001 164.4 32.1001C163.4 32.7001 162.317 33.0001 161.15 33.0001C159.983 33.0001 158.933 32.7001 157.95 32.1335C156.95 31.5668 156.15 30.7001 155.533 29.6001C154.933 28.5001 154.617 27.1835 154.617 25.7001C154.617 24.2168 154.917 22.9168 155.533 21.8001C156.133 20.7001 156.967 19.8501 157.95 19.2668C158.95 18.7001 160.017 18.4001 161.15 18.4001C162.283 18.4001 163.4 18.7001 164.4 19.2501C165.4 19.8168 166.2 20.6501 166.817 21.7501C167.417 22.8501 167.733 24.1501 167.733 25.6168C167.733 27.0835 167.433 28.4335 166.817 29.5335Z" fill="#1B3E51"/><path d="M139.283 16.3674L139.05 16.7008V13.6508H133.167V37.7508H139.05V25.7508C139.05 23.4674 139.55 21.8341 140.567 20.9008C141.567 19.9841 143.067 19.5008 145.017 19.5008H146.517V13.3008C142.1 13.3341 140.083 15.2341 139.283 16.3674Z" fill="#1B3E51"/><path d="M130.967 25.1833C130.967 22.85 130.467 20.75 129.467 18.9333C128.517 17.1333 127.1 15.7167 125.3 14.7333C123.5 13.75 121.433 13.25 119.15 13.25C116.867 13.25 114.667 13.7667 112.85 14.7833C111.05 15.7833 109.6 17.2667 108.6 19.1167C107.6 21 107.067 23.2 107.067 25.7C107.067 28.2 107.583 30.3667 108.6 32.2333C109.617 34.1167 111.067 35.5833 112.9 36.6C114.733 37.6167 116.817 38.1333 119.133 38.1333C121.983 38.1333 124.433 37.3833 126.383 35.9C128.283 34.45 129.617 32.5833 130.317 30.35H123.95C122.95 32.3167 121.283 33.2833 119 33.2833C117.383 33.2833 116.017 32.7667 114.917 31.75C113.817 30.75 113.183 29.3167 113.033 27.5333L113.017 27.4H130.817C130.917 26.75 130.967 25.9833 130.967 25.1833ZM124.9 23.5333H113.083L113.117 23.3833C113.35 21.7167 114.017 20.4 115.067 19.45C116.133 18.5167 117.45 18.0333 118.983 18.0333C120.617 18.0333 122.017 18.5167 123.15 19.4833C124.283 20.4667 124.867 21.7667 124.9 23.3833V23.5333Z" fill="#1B3E51"/><path d="M100.883 7.63281H94.9667V13.6495H92.5V18.4328H94.9667V30.2995C94.9667 35.2995 97.4667 37.7328 102.6 37.7328H106.317V32.7995H103.6C102.617 32.7995 101.933 32.5995 101.517 32.2161C101.1 31.8328 100.883 31.1995 100.883 30.3328V18.4161H106.333V13.6495H100.867L100.883 7.63281Z" fill="#1B3E51"/><path d="M85.6333 7.61719H79.7166V13.6339H76.8167V18.4172H79.7166V30.2839C79.7166 35.2839 82.2166 37.7172 87.35 37.7172H91.0667V32.7839H88.35C87.3666 32.7839 86.6833 32.5839 86.2666 32.2005C85.85 31.8005 85.6333 31.1839 85.6333 30.3172V18.4005H91.0833V13.6339H85.6333V7.61719Z" fill="#1B3E51"/><path d="M68.5833 37.7504H74.4666V13.6504H68.5833V37.7504Z" fill="#1B3E51"/><path d="M71.5667 11.2668C73.5733 11.2668 75.2 9.63264 75.2 7.6168C75.2 5.60096 73.5733 3.9668 71.5667 3.9668C69.56 3.9668 67.9333 5.60096 67.9333 7.6168C67.9333 9.63264 69.56 11.2668 71.5667 11.2668Z" fill="#1B3E51"/><path d="M59.4 28.7331C59.4 29.9997 59.1 30.9997 58.4833 31.7164C57.8667 32.4497 56.9833 32.8164 55.8333 32.8164C54.6833 32.8164 53.75 32.4164 53.1167 31.6664C52.5167 30.9331 52.2 29.9164 52.15 28.6497H46.2667C46.3 31.5831 47.1833 33.8997 48.9333 35.5331C50.7 37.1997 53.05 38.0497 55.9333 38.0497C58.8167 38.0497 61.0833 37.2164 62.7833 35.5997C64.4833 33.9831 65.3333 31.6664 65.3333 28.7164V7.31641H59.4V28.7331Z" fill="#1B3E51"/></svg></a>
+  <div class="divider"></div>
+  <h1 id="title">Prototype</h1>
+  <a class="btn btn-ghost" id="back-text" href="./">All prototypes</a>
+  <a class="btn btn-solid" id="full" href="#" target="_blank" rel="noopener">Open full screen</a>
+</header>
+<div class="frame-wrap" id="wrap"></div>
 <script>
 (function () {
-  var name = new URLSearchParams(location.search).get('p') || '';
+  var params = new URLSearchParams(location.search);
+  var name = params.get('p') || '';
+  var admin = params.get('admin') === '1';
 
-  // Only a plain .html file name in this repository — no paths, no other origins.
+  var home = './' + (admin ? '?admin=1' : '');
+  document.getElementById('back').href = home;
+  document.getElementById('back-text').href = home;
+
   var safe = /^[A-Za-z0-9][A-Za-z0-9._-]*\.html$/.test(name) && name.indexOf('..') === -1;
-
   var wrap = document.getElementById('wrap');
 
   if (!safe) {
-    document.getElementById('fullscreen').remove();
+    document.getElementById('full').remove();
     wrap.innerHTML = '<p class="message">No prototype selected. Open this page as ' +
       '<code>view.html?p=file-name.html</code>, or pick one from the ' +
       '<a href="./">list of prototypes</a>.</p>';
     return;
   }
 
-  var label = name.replace(/\.html$/, '');
-  document.title = label;
+  var label = name.replace(/\.html$/i, '');
+  document.title = label + ' \u2014 Jitterbit';
   document.getElementById('title').textContent = label;
-  document.getElementById('fullscreen').href = name;
+  document.getElementById('full').href = name;
 
   var frame = document.createElement('iframe');
   frame.src = name;
