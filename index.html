@@ -3,79 +3,145 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>APIM Import &amp; Export — Prototype</title>
+<title>Prototypes</title>
 <style>
   :root {
     --bar: #5a388a;
     --bar-text: #ffffff;
-    --bar-height: 44px;
+    --ink: #1c1917;
+    --ink-soft: #57534e;
+    --rule: #ddd9e2;
   }
   * { box-sizing: border-box; }
-  html, body { height: 100%; }
   body {
     margin: 0;
-    font: 400 14px/1.4 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font: 400 15px/1.5 "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--ink);
     background: #f5f5f7;
-    display: flex;
-    flex-direction: column;
   }
   header {
-    flex: 0 0 var(--bar-height);
-    height: var(--bar-height);
+    height: 44px;
     background: var(--bar);
     color: var(--bar-text);
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
     padding: 0 16px;
   }
-  header h1 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  header h1 { margin: 0; font-size: 14px; font-weight: 500; }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 20px 64px;
   }
-  header a {
-    color: var(--bar-text);
-    font-size: 13px;
+  main > p { color: var(--ink-soft); margin: 0 0 28px; }
+  ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+  li { border-bottom: 1px solid var(--rule); }
+  li a {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 16px 4px;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: 4px;
-    padding: 5px 10px;
-    white-space: nowrap;
+    color: inherit;
   }
-  header a:hover { background: rgba(255, 255, 255, 0.14); }
-  header a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-  .frame-wrap {
-    flex: 1 1 auto;
-    min-height: 0;
-    position: relative;
+  li a:hover { background: #eeecf1; }
+  li a:focus-visible { outline: 2px solid var(--bar); outline-offset: -2px; }
+  .name { flex: 1 1 auto; font-weight: 500; overflow-wrap: anywhere; }
+  .size {
+    flex: 0 0 auto;
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
   }
-  iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-    background: #ffffff;
+  .status { color: var(--ink-soft); padding: 16px 4px; }
+  .status code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px;
+    background: #ebeaee;
+    padding: 2px 5px;
+    border-radius: 3px;
   }
 </style>
 </head>
 <body>
-  <header>
-    <h1>API Manager — Import &amp; Export APIs</h1>
-    <a href="apim-import-export.html" target="_blank" rel="noopener">Open full screen</a>
-  </header>
-  <div class="frame-wrap">
-    <iframe
-      src="apim-import-export.html"
-      title="API Manager Import and Export prototype"
-      allow="clipboard-write"></iframe>
-  </div>
+  <header><h1>Prototypes</h1></header>
+  <main>
+    <p>Interactive UX prototypes, hosted straight from the repository.</p>
+    <div id="out"><p class="status">Loading&hellip;</p></div>
+  </main>
+
+<script>
+(function () {
+  var OWNER = 'fernandoalves-jitterbit';
+  var REPO = 'Claude-final-prototypes';
+  var SKIP = { 'index.html': 1, 'view.html': 1, '404.html': 1 };
+
+  var host = location.hostname.match(/^([^.]+)\.github\.io$/);
+  var seg = location.pathname.split('/').filter(Boolean)[0];
+  if (host) OWNER = host[1];
+  if (seg) REPO = seg;
+
+  var out = document.getElementById('out');
+
+  function mb(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  function fallback(reason) {
+    out.innerHTML = '<p class="status">' + reason +
+      ' Prototypes are still reachable directly at ' +
+      '<code>' + location.origin + location.pathname + 'file-name.html</code>.</p>';
+  }
+
+  fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/')
+    .then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    })
+    .then(function (items) {
+      var files = items.filter(function (f) {
+        return f.type === 'file' && /\.html$/i.test(f.name) && !SKIP[f.name.toLowerCase()];
+      });
+
+      if (!files.length) {
+        out.innerHTML = '<p class="status">No prototypes yet. Commit an ' +
+          '<code>.html</code> file to the repository root and it shows up here.</p>';
+        return;
+      }
+
+      files.sort(function (a, b) { return a.name.localeCompare(b.name); });
+
+      var ul = document.createElement('ul');
+      files.forEach(function (f) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = 'view.html?p=' + encodeURIComponent(f.name);
+
+        var name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = f.name.replace(/\.html$/i, '');
+
+        var size = document.createElement('span');
+        size.className = 'size';
+        size.textContent = mb(f.size);
+
+        a.appendChild(name);
+        a.appendChild(size);
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+
+      out.innerHTML = '';
+      out.appendChild(ul);
+    })
+    .catch(function (e) {
+      fallback(String(e.message) === '403'
+        ? 'The list is temporarily unavailable — GitHub rate-limits anonymous requests, so it returns in an hour.'
+        : 'The list could not be loaded.');
+    });
+})();
+</script>
 </body>
 </html>
